@@ -1,6 +1,5 @@
 const maxArea = (heights) => {
-
-    
+    if(heights.length===0) return 0
     let maxArea = 0;
     let left = 0;
     let right = heights.length-1
