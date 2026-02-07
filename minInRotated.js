@@ -1,5 +1,6 @@
 const minInRotated = (nums) => {
     let min = Infinity
+    
     let left = 0;
     let right = nums.length-1
     while(left<=right){
