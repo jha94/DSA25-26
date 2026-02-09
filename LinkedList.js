@@ -1,27 +1,31 @@
+// add, traverse, prepend, deleteByValue, reverse
+
 class Node {
     constructor(value) {
-        this.value = value;
+        this.value = value
         this.next = null
     }
 }
 
 class LinkedList {
     constructor() {
-        this.head = null;
-        this.size
+        this.head = null
+        this.size = 0
     }
-    add(value) {
+    add(value, prepend) {
         const node = new Node(value)
         if (this.head === null) {
-            this.head = node
-        } else {
-            let current = this.head
-            while (current.next) {
-                current = current.next
-            }
-            current.next = node
+            return this.head = node
         }
-        this.size++
+        if (prepend) {
+            node.next = this.head
+            return this.head = node
+        }
+        let current = this.head
+        while (current.next !== null) {
+            current = current.next
+        }
+        return current.next = node
     }
     traverse() {
         let current = this.head
@@ -30,22 +34,9 @@ class LinkedList {
             current = current.next
         }
     }
-    prepend(value) {
-        const node = new Node(value);
-        node.next = this.head
-        this.head = node
-    }
-    insertAtEnd(value) {
-        const node = new Node(value)
-        let current = this.head
-        while (current.next !== null) {
-            current = current.next
-        }
-        current.next = node
-    }
     deleteByValue(value) {
-        if (!this.head) {
-            return null
+        if (this.head === null) {
+            return 'Linked list is empty'
         }
         if (this.head.value === value) {
             return this.head = this.head.next
@@ -58,9 +49,11 @@ class LinkedList {
             current = current.next
         }
     }
-    reverse(head) {
+
+    reverse(){
+        let head = this.head
         let [prev, current, next] = [null, head, null]
-        while (current) {
+        while(current){
             next = current.next
             current.next = prev
             prev = current
@@ -68,23 +61,16 @@ class LinkedList {
         }
         return prev
     }
-
 }
 
-const ll = new LinkedList();
-ll.add(1)
-ll.add(2)
-// ll.traverse()
-ll.prepend(0)
-// ll.traverse()
-ll.add(3)
-// ll.traverse()
-ll.prepend(4)
-// ll.traverse()
-// ll.insertAtEnd(-2)
-// ll.traverse()
-// ll.deleteByValue(4)
-ll.traverse()
-ll.reverse(ll.head)
-ll.traverse()
+const ll1 = new LinkedList()
+ll1.add(1)
+ll1.add(2)
+ll1.add(3)
+// ll1.add(2, true)
+// ll1.traverse()
+// ll1.deleteByValue(3)
+ll1.traverse()
+ll1.reverse()
+ll1.traverse()
 
