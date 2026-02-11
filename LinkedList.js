@@ -1,8 +1,8 @@
 // add, traverse, prepend, deleteByValue, reverse
 
 class Node {
-    constructor(value = 0) {
-        this.value = value;
+    constructor(value) {
+        this.value = value
         this.next = null
     }
 }
@@ -12,52 +12,63 @@ class LinkedList {
         this.head = null
         this.size = 0
     }
-    add(value, prepend=false) {
-        const node = new Node(value);
-        if(this.head===null){
-           return this.head = node
+
+    add(value, prepend) {
+        const node = new Node(value)
+        if (this.head === null) {
+            this.head = node
+            this.size++
+            return
         }
-        if(prepend){
+        if (prepend) {
             node.next = this.head
             this.head = node
+            this.size++
             return
         }
         let current = this.head
-        while(current.next!==null){
+        while (current.next) {
             current = current.next
         }
         current.next = node
         this.size++
         return
     }
-    traverse(){
+
+    traverse() {
         let current = this.head
-        while(current){
+        while (current) {
             console.log(current.value);
             current = current.next
         }
     }
-    deleteByValue(value){
-        let current = this.head
-        if(current===null) return
-        if(current.value===value){
-            return this.head = current.next
+
+    deleteByValue(value) {
+        if (this.head === null) {
+            return 'Oops!! No Data'
         }
-        while(current.next!==null){
-            if(current.next.value===value){
-               return current.next = current.next.next
+        if (this.head.value === value) {
+            this.head = this.head.next
+            this.size--
+            return
+        }
+        let current = this.head
+        while (current.next) {
+            if (current.next.value === value) {
+                return current.next = current.next.next
             }
             current = current.next
+            return
         }
     }
-    reverse(){
-        let current = this.head
-        let [prev, curr, next] = [null, current, null]
-        while(curr){
-            next = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next
+
+    reverse() {
+        const [prev, current, next] = [null, this.head, null]
+        while (current) {
+            next = current.next
+            current.next = prev
+            prev = current
+            current = next
         }
         return prev
     }
@@ -68,5 +79,8 @@ ll1.add(1)
 ll1.add(2)
 ll1.add(3, true)
 ll1.traverse()
-ll1.deleteByValue(1)
+ll1.deleteByValue(3)
 ll1.traverse()
+ll1.deleteByValue(2)
+ll1.traverse()
+ll1.deleteByValue(2)
