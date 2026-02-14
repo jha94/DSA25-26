@@ -73,14 +73,36 @@ class LinkedList {
         return prev
     }
 
-    reverseSum(reversedHead){
+    reverseSum(reversedHead) {
         let current = reversedHead;
         let total = ''
-        while(current){
-            total+=current.value
+        while (current) {
+            total += current.value
             current = current.next
         }
         return Number(total)
+    }
+
+    removeNthFromEnd(n, head) {
+        if (n < 1) {
+            return 'Oops! Please provide right index.'
+        }
+        if (n === 1) {
+            return head.next
+        }
+        let dummy = head
+        let current = dummy
+
+        let index = 1
+        while (current.next) {
+            if (index !== n) {
+                index++
+                current = current.next
+            } else {
+                current = current.next.next
+            }
+            return dummy.next
+        }
     }
 }
 
@@ -88,14 +110,18 @@ const ll1 = new LinkedList()
 ll1.add(1)
 ll1.add(2)
 ll1.add(3)
+// ll1.traverse(ll1.head)
 const reversedLl1 = ll1.reverse()
-console.log(ll1.reverseSum(reversedLl1))
-const ll2 = new LinkedList()
-ll2.add(4)
-ll2.add(5)
-ll2.add(6)
-const reversedLl2 = ll2.reverse()
-console.log(ll1.reverseSum(reversedLl2))
+const res = ll1.removeNthFromEnd(2, reversedLl1)
+ll1.traverse(res)
+// const reversedLl1 = ll1.reverse()
+// console.log(ll1.reverseSum(reversedLl1))
+// const ll2 = new LinkedList()
+// ll2.add(4)
+// ll2.add(5)
+// ll2.add(6)
+// const reversedLl2 = ll2.reverse()
+// console.log(ll1.reverseSum(reversedLl2))
 // ll1.traverse(ll1.head)
 // ll1.deleteByValue(3)
 // ll1.traverse()
