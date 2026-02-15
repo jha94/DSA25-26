@@ -57,8 +57,9 @@ class BST {
 }
 
 const bst = new BST()
-bst.insert(1)
-bst.insert(0)
-bst.insert(2)
-// bst.inorder(bst.root)
-bst.preorder(bst.root)
+bst.insert(10)
+bst.insert(5)
+bst.insert(15)
+bst.insert(3)
+bst.insert(7)
+bst.postorder(bst.root)
