@@ -8,7 +8,8 @@ class Node {
 
 class BST {
     constructor() {
-        this.root = null
+        this.root = null;
+        this.diameterLength = 0;
     }
     insert(value) {
         const node = new Node(value)
@@ -54,6 +55,19 @@ class BST {
             console.log(root.value);
         }
     }
+    maxDepth(root){
+        if(!root) return 0
+        const stack = [[root,1]]
+        let max = 0
+        while(stack.length){
+            const [node, depth] = stack.pop();
+            max = Math.max(max, depth)
+            if(node.left) stack.push([node.left, depth+1])
+            if(node.right) stack.push([node.right, depth+1])
+        }
+        return max
+        // return 1+Math.max(this.maxDepth(root.left), this.maxDepth(root.right))
+    }
 }
 
 const bst = new BST()
@@ -62,4 +76,5 @@ bst.insert(5)
 bst.insert(15)
 bst.insert(3)
 bst.insert(7)
-bst.postorder(bst.root)
+// bst.postorder(bst.root)
+console.log(bst.maxDepth(bst.root));
