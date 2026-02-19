@@ -1,20 +1,19 @@
 const multiply = (num1, num2) => {
     let firstNum = 0;
     let secNum = 0;
-    num1.split('').forEach((value, index) => {
-        if (index === 0) {
-            firstNum = value * Math.pow(10, (num1.length - 1) - index)
-        } else {
-            firstNum += value * Math.pow(10, (num1.length - 1) - index)
-        }
-    })
-    num2.split('').forEach((value, index) => {
-        if (index === 0) {
-            secNum = value * Math.pow(10, (num2.length - 1) - index)
-        } else {
-            secNum += value * Math.pow(10, (num2.length - 1) - index)
-        }
-    })
-    return String(BigInt(firstNum) * BigInt(secNum))
+    const prod = (value, length, index) => value * Math.pow(10, length - index)
+    const multiply = (strArr, res) => {
+        strArr.split('').forEach((value, index) => {
+            if (index === 0) {
+                res = prod(value, (num1.length - 1), index)
+            } else {
+                res += prod(value, (num1.length - 1), index)
+            }
+        })
+        return res
+    }
+    const firstMultiplyRes = multiply(num1, firstNum);
+    const secMultiplyRes = multiply(num2, secNum)
+    return String(BigInt(firstMultiplyRes) * BigInt(secMultiplyRes))
 }
 console.log(multiply("123456789", "987654321"))

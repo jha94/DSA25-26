@@ -55,18 +55,31 @@ class BST {
             console.log(root.value);
         }
     }
-    maxDepth(root){
-        if(!root) return 0
-        const stack = [[root,1]]
+    maxDepth(root) {
+        if (!root) return 0
+        const stack = [[root, 1]]
         let max = 0
-        while(stack.length){
+        while (stack.length) {
             const [node, depth] = stack.pop();
             max = Math.max(max, depth)
-            if(node.left) stack.push([node.left, depth+1])
-            if(node.right) stack.push([node.right, depth+1])
+            if (node.left) stack.push([node.left, depth + 1])
+            if (node.right) stack.push([node.right, depth + 1])
         }
         return max
         // return 1+Math.max(this.maxDepth(root.left), this.maxDepth(root.right))
+    }
+    isBalanced(root) {
+        const height = (root) => {
+            if (!root) return 0
+            let left = height(root.left)
+            if (left === -1) return -1
+            let right = height(root.right)
+            if (right === -1) return -1
+            if(Math.abs(left-right)>1) return -1
+            return 1+Math.max(left, right)
+
+        }
+        return height(root) !== -1
     }
 }
 
@@ -77,4 +90,5 @@ bst.insert(15)
 bst.insert(3)
 bst.insert(7)
 // bst.postorder(bst.root)
-console.log(bst.maxDepth(bst.root));
+// console.log(bst.maxDepth(bst.root));
+console.log(bst.isBalanced(bst.root))

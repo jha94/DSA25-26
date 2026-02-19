@@ -1,4 +1,5 @@
 const findDuplicate = (nums) => {
+    // use set
     // let values = []
     // for (let num of nums) {
     //     if (values.includes(num)) {
@@ -7,17 +8,15 @@ const findDuplicate = (nums) => {
     //     values.push(num)
     // }
 
-    let slow = nums[0]
     let fast = nums[0]
-
-    while (true) {
-        slow = nums[slow]
+    let slow = nums[0]
+    while(true){
         fast = nums[nums[fast]]
-        if (fast === slow) break
+        slow = nums[slow]
+        if(fast===slow) break
     }
-
     slow = nums[0]
-    while (slow !== fast) {
+    while(fast!==slow){
         slow = nums[slow]
         fast = nums[fast]
     }
