@@ -75,20 +75,50 @@ class BST {
             if (left === -1) return -1
             let right = height(root.right)
             if (right === -1) return -1
-            if(Math.abs(left-right)>1) return -1
-            return 1+Math.max(left, right)
+            if (Math.abs(left - right) > 1) return -1
+            return 1 + Math.max(left, right)
 
         }
         return height(root) !== -1
     }
+    isSubtree(root, subRoot) {
+        if (!root && !subRoot) return true
+        if (root.val !== subRoot.val) {
+            this.isSubtree(root.left, subRoot)
+            this.isSubtree(root.right, subRoot)
+        } else {
+            this.isSubtree(root.left, subRoot.left)
+            this.isSubtree(root.right, subRoot.right)
+        }
+        return true
+    }
+
+    maxPathSum(root) {
+        let leftSum = 0;
+        let rightSum = 0
+        function getSum(head) {
+            if (!head) return 0
+            leftSum += getSum(head.left)
+            rightSum += getSum(head.right)
+            return head.value+rightSum + leftSum
+        }
+        return getSum(root)
+    }
 }
 
 const bst = new BST()
-bst.insert(10)
-bst.insert(5)
-bst.insert(15)
+bst.insert(4)
 bst.insert(3)
-bst.insert(7)
+bst.insert(2)
+bst.insert(1)
+console.log(bst.maxPathSum(bst.root))
+
+const bst2 = new BST()
+bst.insert(2)
+bst.insert(4)
+bst.insert(5)
+
+bst.isSubtree(bst, bst2)
 // bst.postorder(bst.root)
 // console.log(bst.maxDepth(bst.root));
-console.log(bst.isBalanced(bst.root))
+// console.log(bst.isBalanced(bst.root))
