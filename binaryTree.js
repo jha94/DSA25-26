@@ -10,38 +10,50 @@ class BinaryTree {
     constructor() {
         this.root = null
     }
-    insert(value) {
-            const node = new Node(value)
-            if (this.root === null) {
-              return  this.root = node
-            } 
-           return this.insertNode(this.root, node)
-    }
-    insertNode(root, node) {
-        if (root.left === null) {
-           return root.left = node
-        } else if (root.right === null) {
-           return root.right = node
-        } else{
-            let left = root.left
-
+    insert(val) {
+        const node = new Node(val)
+        if (this.root === null) {
+            this.root = node
+            return
+        } else {
+            this.insertNode(this.root, node)
         }
     }
-    inorder(head) {
-        if (head) {
-            console.log(head.val);
-            this.inorder(head.left)
-            this.inorder(head.right)
+    insertNode(root, node) {
+        const queue = [root]
+        while (queue.length) {
+            const currentNode = queue.shift()
+            if (currentNode.left === null) {
+                return currentNode.left = node
+            } else {
+                queue.push(currentNode.left)
+            }
+            if (currentNode.right === null) {
+                return currentNode.right = node
+            } else {
+                queue.push(currentNode.right)
+            }
+        }
+    }
+    levelOrder(root) {
+        if (!root) return null
+        const queue = [root]
+        while (queue.length) {
+            const currentNode = queue.shift()
+            if (currentNode) {
+                console.log(currentNode.val);
+                queue.push(currentNode.left)
+                queue.push(currentNode.right)
+            }
         }
     }
 }
 
 const bt = new BinaryTree()
-bt.insert(1)
-bt.insert(2)
-bt.insert(3)
-bt.insert(null)
-bt.insert(5)
-bt.insert(null)
-bt.insert(4)
-bt.inorder(bt.root)
+bt.insert(10)
+bt.insert(20)
+bt.insert(30)
+bt.insert(40)
+bt.insert(50)
+bt.levelOrder(bt.root)
+
