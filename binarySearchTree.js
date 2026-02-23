@@ -107,18 +107,22 @@ class BST {
 }
 
 const bst = new BST()
-bst.insert(4)
 bst.insert(3)
-bst.insert(2)
-bst.insert(1)
-console.log(bst.maxPathSum(bst.root))
+bst.insert(9)
+bst.insert(20)
+bst.insert(null)
+bst.insert(null)
+bst.insert(15)
+bst.insert(7)
+bst.preorder(bst.root)
+// console.log(bst.maxPathSum(bst.root))
 
-const bst2 = new BST()
-bst.insert(2)
-bst.insert(4)
-bst.insert(5)
+// const bst2 = new BST()
+// bst.insert(2)
+// bst.insert(4)
+// bst.insert(5)
 
-bst.isSubtree(bst, bst2)
+// bst.isSubtree(bst, bst2)
 // bst.postorder(bst.root)
 // console.log(bst.maxDepth(bst.root));
 // console.log(bst.isBalanced(bst.root))
