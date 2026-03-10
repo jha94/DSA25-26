@@ -104,17 +104,30 @@ class BST {
         }
         return getSum(root)
     }
+
+    kthSmallest(root, k){
+        const res = []
+        const inorder = (root) => {
+            if(root){
+                inorder(root.left)
+                res.push(root.value)
+                inorder(root.right)
+            }
+        }
+        inorder(root)
+        return res[k-1]
+    }
+
+
 }
 
 const bst = new BST()
+bst.insert(1)
+bst.insert(2)
 bst.insert(3)
-bst.insert(9)
-bst.insert(20)
-bst.insert(null)
-bst.insert(null)
-bst.insert(15)
-bst.insert(7)
-bst.preorder(bst.root)
+console.log(bst.isValidBST(bst.root));
+
+// console.log(bst.kthSmallest(bst.root, 1))
 // console.log(bst.maxPathSum(bst.root))
 
 // const bst2 = new BST()
