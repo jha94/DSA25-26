@@ -11,10 +11,10 @@ class MaxHeap {
   getRightChildIndex(index) {
     return 2 * index + 2;
   }
-  swap(childIndex, parentIndex) {
-    [this.heap[childIndex], this.heap[parentIndex]] = [
-      this.heap[parentIndex],
-      this.heap[childIndex],
+  swap(index1, index2) {
+    [this.heap[index1], this.heap[index2]] = [
+      this.heap[index2],
+      this.heap[index1],
     ];
   }
   insert(value) {
@@ -29,45 +29,32 @@ class MaxHeap {
       parentIndex = this.getParentIndex(index);
     }
   }
+  remove(){
+    if(this.heap.length===0) return null
+    if(this.heap.length===1) return this.heap.pop()
 
-  remove() {
-    if (this.heap.length === 0) return null;
-    if (this.heap.length === 1) return this.heap.pop();
-
-    this.heap[0] = this.heap.pop();
-    this.bubbleDown(0);
+    this.heap[0] = this.heap.pop()
+    this.bubbleDown(0)
   }
-  bubbleDown(index) {
-    let largest = index;
-    let leftChildIndex = this.getLeftChildIndex(index);
-    let rightChildIndex = this.getRightChildIndex(index);
-    if (
-      leftChildIndex < this.heap.length &&
-      this.heap[leftChildIndex] > this.heap[largest]
-    ) {
-      largest = leftChildIndex;
-    }
-    if (
-      rightChildIndex < this.heap.length &&
-      this.heap[rightChildIndex] > this.heap[largest]
-    ) {
-      largest = rightChildIndex;
-    }
 
-    if (largest !== index) {
-      this.swap(largest, index);
-      this.bubbleDown(largest);
+  bubbleDown(index){
+    let largest = index
+    let leftChildIndex = this.getLeftChildIndex(index)
+    let rightChildIndex = this.getRightChildIndex(index)
+    if(leftChildIndex<this.heap.length && this.heap[leftChildIndex]>this.heap[largest]){
+        largest = leftChildIndex
+    }
+    if(rightChildIndex<this.heap.length && this.heap[rightChildIndex]>this.heap[largest]){
+        largest = rightChildIndex
+    }
+    if(index!==largest){
+        this.swap(largest, index)
+        this.bubbleDown(largest)
     }
   }
-  peek() {
-    if (this.heap.length === 0) return null;
-    return this.heap[0];
-  }
-  size() {
-    return this.heap.length;
-  }
-  print() {
+  print(){
     console.log(this.heap);
+    
   }
 }
 
@@ -79,4 +66,6 @@ mh.insert(7);
 mh.insert(40);
 mh.insert(50);
 mh.insert(60);
+mh.print();
+mh.remove();
 mh.print();
