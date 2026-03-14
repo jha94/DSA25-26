@@ -1,52 +1,18 @@
-
-const maxSum = (arr, k) => {
+const maxSum = (arr, size) => {
   let sum = 0;
-  let maxSum = 0
-  for(let index=0;index<arr.length;index++){
-    sum+=arr[index]
-    if(index>=k){
-      sum-=arr[index-k]
+  let maxSum = 0;
+  for (let index = 0; index < arr.length; index++) {
+    sum += arr[index];
+    if (index >= size) {
+      sum -= arr[index - size];
     }
-    if(index>=k-1){
-      maxSum = Math.max(maxSum, sum)
-    }
+    maxSum = Math.max(sum, maxSum);
   }
-  return maxSum
-}
-
-// console.log(maxSum([2, 1, 5, 1, 3, 2], 3));
-
-const minSubArrLength = (arr, target) => {
-  let sum = 0;
-  let minWindowSize = 0
-  let left = 0
-  for(let index=0;index<arr.length;index++){
-    sum+=arr[index]
-    while(sum>=target){
-      minWindowSize = Math.min(minWindowSize, index-left+1)
-      sum-=arr[left]
-      left++
-    }
-  }
-  console.log(minWindowSize);
-}
-minSubArrLength([2, 1, 5, 2, 3, 2], 7);
-
-const lengthOfLongestSubstring = (s) => {
-  if (s?.length === 0) return 0;
-  let set = new Set();
-  let left = 0;
-  let maxLength = 0;
-  for (let index = 0; index < s.length; index++) {
-    while (set.has(s[index])) {
-      set.delete(s[left]);
-      left++;
-    }
-    set.add(s[index]);
-    maxLength = Math.max(maxLength, set.size);
-  }
-  return maxLength;
+  return maxSum;
 };
+console.log(maxSum([2, 1, 5, 1, 3, 2], 3));
+
+// console.log(minSubArrLength([2, 1, 5, 2, 3, 2], 7));
 
 // console.log(lengthOfLongestSubstring("abcabcbb"));
 
@@ -63,3 +29,17 @@ const maxProfit = (prices) => {
 };
 
 // console.log(maxProfit([10, 1, 5, 6, 7, 1]));
+
+const containsNearbyDuplicate = (nums, k) => {
+  const window = new Set();
+  for (let index = 0; index < nums.length; index++) {
+    if (window.has(nums[index])) return true;
+    window.add(nums[index]);
+    if (window.size > k) {
+      window.delete(nums[i - k]);
+    }
+  }
+  return false;
+};
+
+console.log(containsNearbyDuplicate([1, 0, 1, 1], 1));
