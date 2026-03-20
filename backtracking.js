@@ -1,18 +1,3 @@
-const subsets = (sets) => {
-  const res = [[]];
-  const dfs = (index, current) => {
-    for (let ind = index; ind < sets.length; ind++) {
-      current.push(sets[ind]);
-      res.push([...current]);
-      dfs(ind + 1, current);
-      current.pop();
-    }
-  };
-  dfs(0, []);
-  return res;
-};
-// console.log(subsets([1, 2, 3]));
-
 var isPowerOfTwo = function (n) {
   if (n === 1) return true;
   const val = (n, base) => {
@@ -22,4 +7,65 @@ var isPowerOfTwo = function (n) {
   };
   return val(n, 2);
 };
-console.log(isPowerOfTwo(3));
+// console.log(isPowerOfTwo(3));
+
+const fib = (n) => {
+  if (n === 0 || n === 1) {
+    return n;
+  }
+  return fib(n - 1) + fib(n - 2);
+};
+// console.log(fib(4))
+
+const subSets = (nums) => {
+  const res = [[]];
+  const getSubsets = (curr, index) => {
+    for (let ind = index; ind < nums.length; ind++) {
+      curr.push(nums[ind]);
+      res.push([...curr]);
+      getSubsets(curr, ind + 1);
+      curr.pop();
+    }
+  };
+  getSubsets([], 0);
+  return res;
+};
+// console.log(subSets([1, 2, 3]))
+
+const subsets = (nums) => {
+  const res = [];
+  const getSubSets = (nums, index) => {
+    if (index === nums.length) {
+       res.push([...nums]);
+       return
+    }
+    for (let ind = index; ind < nums.length; ind++) {
+      [nums[index], nums[ind]] = [nums[ind], nums[index]];
+      getSubSets(nums, index + 1)
+      [nums[index], nums[ind]] = [nums[ind],nums[index]];
+    }
+  };
+  getSubSets(nums, 0);
+  return res;
+};
+subsets([1, 2]);
+
+//   const res = [];
+
+//   const getSubSets = (nums, index) => {
+//     if (index === nums.length) {
+//       res.push([...nums]);
+//       return;
+//     }
+
+//     for (let ind = index; ind < nums.length; ind++) {
+//       [nums[index], nums[ind]] = [nums[ind], nums[index]];
+//       getSubSets(nums, index + 1);
+//       [nums[index], nums[ind]] = [nums[ind], nums[index]];
+//     }
+//   };
+
+//   getSubSets(nums, 0);
+//   return res;
+// };
+// console.log(subsets([1, 2]));
