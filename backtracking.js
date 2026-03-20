@@ -17,21 +17,6 @@ const fib = (n) => {
 };
 // console.log(fib(4))
 
-const subSets = (nums) => {
-  const res = [[]];
-  const getSubsets = (curr, index) => {
-    for (let ind = index; ind < nums.length; ind++) {
-      curr.push(nums[ind]);
-      res.push([...curr]);
-      getSubsets(curr, ind + 1);
-      curr.pop();
-    }
-  };
-  getSubsets([], 0);
-  return res;
-};
-// console.log(subSets([1, 2, 3]))
-
 const subsets = (nums) => {
   const res = [];
   const getSubSets = (nums, index) => {
