@@ -33,4 +33,4 @@ const subsets = (nums) => {
   getSubSets(nums, 0);
   return res;
 };
-subsets([1, 2]);
+console.log(subsets([1, 2]));
