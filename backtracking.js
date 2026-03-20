@@ -34,23 +34,3 @@ const subsets = (nums) => {
   return res;
 };
 subsets([1, 2]);
-
-//   const res = [];
-
-//   const getSubSets = (nums, index) => {
-//     if (index === nums.length) {
-//       res.push([...nums]);
-//       return;
-//     }
-
-//     for (let ind = index; ind < nums.length; ind++) {
-//       [nums[index], nums[ind]] = [nums[ind], nums[index]];
-//       getSubSets(nums, index + 1);
-//       [nums[index], nums[ind]] = [nums[ind], nums[index]];
-//     }
-//   };
-
-//   getSubSets(nums, 0);
-//   return res;
-// };
-// console.log(subsets([1, 2]));
