@@ -31,4 +31,47 @@ const permutation = (nums) => {
   getPermutations(nums, 0);
   return res;
 };
-console.log(permutation([1, 2]));
+// console.log(permutation([1, 2]));
+
+const subsets = (nums) => {
+  const res = [[]];
+  const getSubSets = (start, curr) => {
+    for (let ind = start; ind < nums.length; ind++) {
+      curr.push(nums[ind]);
+      res.push([...curr]);
+      getSubSets(ind + 1, curr);
+      curr.pop();
+    }
+  };
+  getSubSets(0, []);
+  const hash = {};
+  for (let el of res) {
+    if (hash[el]) continue;
+    hash[el] = el;
+  }
+  return Object.values(hash);
+};
+// console.log(subsets([1, 2, 2]));
+
+const wordPermutation = (word) => {
+  const res = [];
+  const permute = (arr, visitedIndices) => {
+    if(arr.length===word.length){
+      res.push(arr.join(''))
+      return
+    }
+    for(let i=0;i<word.length;i++){
+      if(visitedIndices.has(i)) continue
+      arr.push(word[i])
+      visitedIndices.add(i)
+      permute(arr, visitedIndices)
+      arr.pop()
+      visitedIndices.delete(i)
+    }
+  }
+  permute([], new Set())
+  return res
+}
+// console.log(wordPermutation("CODE"));
+
+
