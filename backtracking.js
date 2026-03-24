@@ -56,22 +56,20 @@ const subsets = (nums) => {
 const wordPermutation = (word) => {
   const res = [];
   const permute = (arr, visitedIndices) => {
-    if(arr.length===word.length){
-      res.push(arr.join(''))
-      return
+    if (arr.length === word.length) {
+      res.push(arr.join(""));
+      return;
     }
-    for(let i=0;i<word.length;i++){
-      if(visitedIndices.has(i)) continue
-      arr.push(word[i])
-      visitedIndices.add(i)
-      permute(arr, visitedIndices)
-      arr.pop()
-      visitedIndices.delete(i)
+    for (let i = 0; i < word.length; i++) {
+      if (visitedIndices.has(i)) continue;
+      arr.push(word[i]);
+      visitedIndices.add(i);
+      permute(arr, visitedIndices);
+      arr.pop();
+      visitedIndices.delete(i);
     }
-  }
-  permute([], new Set())
-  return res
-}
+  };
+  permute([], new Set());
+  return res;
+};
 // console.log(wordPermutation("CODE"));
-
-
