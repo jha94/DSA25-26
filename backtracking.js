@@ -73,3 +73,27 @@ const wordPermutation = (word) => {
   return res;
 };
 // console.log(wordPermutation("CODE"));
+
+const targetSum = (nums, target) => {
+  const res = [];
+  const getNums = (arr, currentSum, index) => {
+    if (currentSum < 0) return;
+    if (currentSum === 0) {
+      res.push([...arr]);
+      return;
+    }
+    for (let ind = index; ind < nums.length; ind++) {
+      arr.push(nums[ind]);
+      getNums(arr, currentSum - nums[ind], ind);
+      arr.pop();
+    }
+  };
+  getNums([], target, 0);
+  const hash = {};
+  for (let val of res) {
+    if (hash[val]) continue;
+    hash[val] = val;
+  }
+  return Object.values(hash);
+};
+console.log(targetSum([1, 2, 2], 3));
