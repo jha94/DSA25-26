@@ -1,12 +1,12 @@
-const isPowerOfTwo = (n) => {
-  const check = (n, val) => {
-    if (n - val === 0) return true;
-    if (n - val === 1 || n - val < 0) return false;
-    return check(n, val * 2);
+const isPowerOfTwo = (number) => {
+  const check = (num, divider) => {
+    if (num % divider === 0) return true;
+    if (num % divider === 1 || num % divider < 0) return false;
+    return check(num, divider * 2);
   };
-  return check(n, 2);
+  return check(number, 2);
 };
-// console.log(isPowerOfTwo(1));
+// console.log(isPowerOfTwo(7));
 
 const fib = (num) => {
   if (num === 0) return 0;
@@ -17,33 +17,33 @@ const fib = (num) => {
 
 const permutation = (nums) => {
   const res = [];
-  const getPermutations = (nums, index) => {
+  const getPermutations = (curr, index) => {
     if (index === nums.length) {
-      res.push([...nums]);
+      res.push([...curr]);
       return;
     }
     for (let ind = index; ind < nums.length; ind++) {
-      [nums[ind], nums[index]] = [nums[index], nums[ind]];
+      [nums[index], nums[ind]] = [nums[ind], nums[index]];
       getPermutations(nums, ind + 1);
-      [nums[ind], nums[index]] = [nums[index], nums[ind]];
+      [nums[index], nums[ind]] = [nums[ind], nums[index]];
     }
   };
-  getPermutations(nums, 0);
+  getPermutations([], 0);
   return res;
 };
 // console.log(permutation([1, 2]));
 
 const subsets = (nums) => {
-  const res = [[]];
-  const getSubSets = (start, curr) => {
-    for (let ind = start; ind < nums.length; ind++) {
+  const res = [];
+  const getSubsets = (curr, index) => {
+    for (let ind = index; ind < nums.length; ind++) {
       curr.push(nums[ind]);
       res.push([...curr]);
-      getSubSets(ind + 1, curr);
+      getSubsets(curr, ind + 1);
       curr.pop();
     }
   };
-  getSubSets(0, []);
+  getSubsets([], 0);
   const hash = {};
   for (let el of res) {
     if (hash[el]) continue;
@@ -55,21 +55,21 @@ const subsets = (nums) => {
 
 const wordPermutation = (word) => {
   const res = [];
-  const permute = (arr, visitedIndices) => {
-    if (arr.length === word.length) {
-      res.push(arr.join(""));
+  const getPermutation = (curr, visited) => {
+    if (curr.length === word.length) {
+      res.push(curr.join(""));
       return;
     }
-    for (let i = 0; i < word.length; i++) {
-      if (visitedIndices.has(i)) continue;
-      arr.push(word[i]);
-      visitedIndices.add(i);
-      permute(arr, visitedIndices);
-      arr.pop();
-      visitedIndices.delete(i);
+    for (let index = 0; index < word.length; index++) {
+      if (visited.has(index)) continue;
+      curr.push(word[index]);
+      visited.add(index);
+      getPermutation(curr, visited);
+      curr.pop();
+      visited.delete(index);
     }
   };
-  permute([], new Set());
+  getPermutation([], new Set());
   return res;
 };
 // console.log(wordPermutation("CODE"));
