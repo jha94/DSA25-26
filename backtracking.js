@@ -92,6 +92,6 @@ const combinationSum = (nums, target) => {
   getCombinations([], target, 0);
   return res;
 };
-console.log(combinationSum([1, 2, 2], 3));
 
-console.log(combinationSum([3, 4, 5], 16));
+// console.log(combinationSum([1, 2, 2], 3));
+// console.log(combinationSum([3, 4, 5], 16));
