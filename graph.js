@@ -1,5 +1,5 @@
-const buildAdjList = (n, edges) => {
-  const adjList = Array.from({ length: n }, () => []);
+let buildAdjList = (n, edges) => {
+  let adjList = Array.from({ length: n }, () => []);
   for (let edge of edges) {
     let [src, dest] = edge;
     adjList[src].push(dest);
@@ -8,11 +8,11 @@ const buildAdjList = (n, edges) => {
   return adjList;
 };
 
-const bfs = (node, adjList, visited) => {
-  const queue = [node];
-  visited[node] = true;
+const bfs = (index, visited, adjList) => {
+  const queue = [index];
+  visited[index] = true;
   while (queue.length) {
-    let curr = queue.shift();
+    const curr = queue.shift();
     for (let neighbor of adjList[curr]) {
       if (!visited[neighbor]) {
         visited[neighbor] = true;
@@ -22,14 +22,14 @@ const bfs = (node, adjList, visited) => {
   }
 };
 
-const countComponents = (n, edges) => {
+let countComponents = (n, edges) => {
   const adjList = buildAdjList(n, edges);
   const visited = {};
   let numComponents = 0;
-  for (let vertex = 0; vertex < adjList.length; vertex++) {
-    if (!visited[vertex]) {
+  for (let index = 0; index < adjList.length; index++) {
+    if (!visited[index]) {
       numComponents++;
-      bfs(vertex, adjList, visited);
+      bfs(index, visited, adjList);
     }
   }
   return numComponents;
