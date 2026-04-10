@@ -1,83 +1,56 @@
-const buildAdjList = (n, edges) => {
-  const adjList = Array.from({ length: n }, () => []);
-  for (let edge of edges) {
-    const [src, dest] = edge;
-    adjList[src].push(dest);
-    adjList[dest].push(src);
-  }
-  return adjList;
-};
+// const buildAdjMatrix = (edges, numOfNodes) =>{
+//   const adjMat = Array.from({length:numOfNodes}, ()=>[])
+//   for(let edge of edges){
+//     const [src, dest] = edge
+//     adjMat[src][dest] = true
+//   }
+//   console.log(adjMat);
+// }
+// buildAdjMatrix([[0,1], [2, 3], [0,4]], 5)
 
-const bfs = (index, adjList, visited) => {
-  const queue = [index];
-  visited[index] = true;
-  while (queue.length) {
-    const curr = queue.shift();
-    for (let neighbor of adjList[curr]) {
-      if (!visited[neighbor]) {
-        visited[neighbor] = true;
-        queue.push(neighbor);
+// const buildAdjList = (edges) => {
+//   const adjList = {}
+//   for(let edge of edges){
+//     const [src, dest] = edge
+//     if(adjList[src]){
+//       adjList[src].push(dest)
+//     } else{
+//       adjList[src] = [dest]
+//     }
+//   }
+//   console.log(adjList);
+
+// }
+// buildAdjList([[0,1], [2, 3], [0,4]])
+
+const graphBfs = (adj) => {
+  let visited = {};
+  let ans = [];
+  let queue = [];
+
+  for (let node in adj) {
+    console.log('node', node);
+    
+    if (!visited[node]) {
+      bfs(node);
+    }
+  }
+    function bfs(node)  {
+    visited[node] = true;
+    ans.push(node);
+    queue.push(node);
+
+    while (queue.length) {
+      const current = queue.shift();
+      for (let neighor of adj[current]) {
+        if (!visited[neighor]) {
+          visited[neighor] = true;
+          ans.push(neighor);
+          queue.push(neighor);
+        }
       }
     }
-  }
+  };
+  return ans;
 };
-
-const countComponents = (n, edges) => {
-  const adjList = buildAdjList(n, edges);
-  const visited = {};
-  let numComponents = 0;
-  for (let index = 0; index < adjList.length; index++) {
-    if (!visited[index]) {
-      numComponents++;
-      bfs(index, adjList, visited);
-    }
-  }
-  return numComponents;
-};
-
-// console.log(
-//   countComponents(5, [
-//     [0, 1],
-//     [1, 2],
-//     [3, 4],
-//   ]),
-// );
-
-const dfs = (grid, i, j) => {
-  if (
-    i < 0 ||
-    i >= grid.length ||
-    j < 0 ||
-    j >= grid[i].length ||
-    grid[i][j] === "0"
-  ) {
-    return "0";
-  }
-  grid[i][j] = "0";
-  dfs(grid, i + 1, j);
-  dfs(grid, i - 1, j);
-  dfs(grid, i, j + 1);
-  dfs(grid, i, j - 1);
-  return 1;
-};
-
-const numIslands = (grid) => {
-  let count = 0;
-  for (let i = 0; i < grid.length; i++) {
-    for (let j = 0; j < grid[i].length; j++) {
-      if (grid[i][j] === "1") {
-        count += dfs(grid, i, j);
-      }
-    }
-  }
-  return count;
-};
-
-console.log(
-  numIslands([
-    ["1", "1", "0", "0", "1"],
-    ["1", "1", "0", "0", "1"],
-    ["0", "0", "1", "0", "0"],
-    ["0", "0", "0", "1", "1"],
-  ]),
-);
+console.log(graphBfs([[2, 3, 1], [0], [0, 4], [0], [4]]));
