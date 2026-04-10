@@ -24,33 +24,30 @@
 // buildAdjList([[0,1], [2, 3], [0,4]])
 
 const graphBfs = (adj) => {
-  let visited = {};
-  let ans = [];
-  let queue = [];
-
-  for (let node in adj) {
-    console.log('node', node);
-    
-    if (!visited[node]) {
-      bfs(node);
+  const visited = {};
+  const queue = [];
+  const response = [];
+  for (let index in adj) {
+    if (!visited[index]) {
+      bfs(index);
     }
   }
-    function bfs(node)  {
-    visited[node] = true;
-    ans.push(node);
-    queue.push(node);
-
-    while (queue.length) {
-      const current = queue.shift();
-      for (let neighor of adj[current]) {
-        if (!visited[neighor]) {
-          visited[neighor] = true;
-          ans.push(neighor);
-          queue.push(neighor);
+  function bfs(index){
+    visited[index] = true
+    queue.push(index)
+    response.push(index)
+    while(queue.length){
+      const current = queue.shift()
+      for(let neighbour of adj[current]){
+        if(!visited[neighbour]){
+          visited[neighbour] = true
+          response.push(neighbour)
+          queue.push(neighbour)
         }
       }
     }
-  };
-  return ans;
+  }
+  return response
 };
+
 console.log(graphBfs([[2, 3, 1], [0], [0, 4], [0], [4]]));
