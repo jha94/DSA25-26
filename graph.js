@@ -25,29 +25,29 @@
 
 const graphBfs = (adj) => {
   const visited = {};
+  const res = [];
   const queue = [];
-  const response = [];
   for (let index in adj) {
     if (!visited[index]) {
       bfs(index);
     }
   }
-  function bfs(index){
-    visited[index] = true
-    queue.push(index)
-    response.push(index)
-    while(queue.length){
-      const current = queue.shift()
-      for(let neighbour of adj[current]){
-        if(!visited[neighbour]){
-          visited[neighbour] = true
-          response.push(neighbour)
-          queue.push(neighbour)
+  function bfs(index) {
+    visited[index] = true;
+    res.push(index);
+    queue.push(index);
+    while (queue.length) {
+      const current = queue.shift();
+      for (let neighbour of adj[current]) {
+        if (!visited[neighbour]) {
+          visited[neighbour] = true;
+          res.push(neighbour);
+          queue.push(neighbour);
         }
       }
     }
   }
-  return response
+  return res;
 };
 
 console.log(graphBfs([[2, 3, 1], [0], [0, 4], [0], [4]]));
