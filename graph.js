@@ -128,32 +128,76 @@ const numIslands = (grid) => {
   if (!grid || grid.length === 0) return 0;
 
   const dfs = (grid, i, j) => {
-    if(i<0||i>=grid.length||j<0||j>=grid[i].length||grid[i][j]==='0'){
-      return 0
+    if (
+      i < 0 ||
+      i >= grid.length ||
+      j < 0 ||
+      j >= grid[i].length ||
+      grid[i][j] === "0"
+    ) {
+      return 0;
     }
-    grid[i][j] = '0'
-    dfs(grid, i+1,j)
-    dfs(grid, i-1, j)
-    dfs(grid, i, j+1)
-    dfs(grid, i, j-1)
-    return 1
-  }
+    grid[i][j] = "0";
+    dfs(grid, i + 1, j);
+    dfs(grid, i - 1, j);
+    dfs(grid, i, j + 1);
+    dfs(grid, i, j - 1);
+    return 1;
+  };
 
   let count = 0;
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      if(grid[i][j]==='1'){
-      count += dfs(grid, i, j);
+      if (grid[i][j] === "1") {
+        count += dfs(grid, i, j);
       }
     }
   }
-  return count
+  return count;
 };
 
 const numOfIsland = numIslands([
-  ["1","1","0","0","1"],
-    ["1","1","0","0","1"],
-    ["0","0","1","0","0"],
-    ["0","0","0","1","1"]
+  ["1", "1", "0", "0", "1"],
+  ["1", "1", "0", "0", "1"],
+  ["0", "0", "1", "0", "0"],
+  ["0", "0", "0", "1", "1"],
 ]);
-console.log(numOfIsland);
+// console.log(numOfIsland);
+
+const maxAreaOfIsland = (grid) => {
+  let maxArea = 0;
+  const dfs = (i, j) => {
+    if (
+      i < 0 ||
+      i >= grid.length ||
+      j < 0 ||
+      j >= grid[0].length ||
+      grid[i][j] === 0
+    )
+      return 0;
+    grid[i][j] = 0;
+    let count = 1;
+    count += dfs(i + 1, j);
+    count += dfs(i - 1, j);
+    count += dfs(i, j + 1);
+    count += dfs(i, j - 1);
+    return count;
+  };
+
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] === 1) {
+        maxArea = Math.max(maxArea, dfs(i, j));
+      }
+    }
+  }
+  return maxArea;
+};
+
+const maxArea = maxAreaOfIsland([
+  [0, 1, 1, 0, 1],
+  [1, 0, 1, 0, 1],
+  [0, 1, 1, 0, 1],
+  [0, 1, 0, 0, 1],
+]);
+// console.log(maxArea);
