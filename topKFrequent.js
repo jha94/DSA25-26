@@ -3,7 +3,7 @@ const topKFrequent = (nums, k) => {
   for (let value of nums) {
     map.set(value, (map.get(value) || 0) + 1);
   }
-  const bucket = Array(nums.length)
+  const bucket = Array(nums.length+1)
     .fill()
     .map(() => []);
   for (let [key, value] of map) {
@@ -22,4 +22,4 @@ const topKFrequent = (nums, k) => {
   }
 };
 
-console.log(topKFrequent([1, 2, 2, 3, 3, 3, 3], 2));
+console.log(topKFrequent([7, 7, 7, 7], 1));
