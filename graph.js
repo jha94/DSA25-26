@@ -10,29 +10,29 @@ const buildAdjList = (edges) => {
   }
   return adjList;
 };
-// const adjList = buildAdjList([
-//   [0, 1],
-//   [2, 3],
-//   [0, 4],
-// ]);
-// console.log(adjList);
+const adjList = buildAdjList([
+  [0, 1],
+  [2, 3],
+  [0, 4],
+]);
+console.log(adjList);
 
-const graphBfs = (adjList) => {
+const graphBfs = (edges) => {
   let visited = {};
   let queue = [];
   let result = [];
-  for (let edge in adjList) {
-    if (!visited[edge]) {
-      bfs(edge);
+  for (let index in edges) {
+    if (!visited[index]) {
+      bfs(index);
     }
   }
-  function bfs(edge) {
-    visited[edge] = true;
-    result.push(edge);
-    queue.push(edge);
+  function bfs(index) {
+    visited[index] = true;
+    result.push(index);
+    queue.push(index);
     while (queue.length) {
       const current = queue.shift();
-      for (let neighbour of adjList[current]) {
+      for (let neighbour of edges[current]) {
         if (!visited[neighbour]) {
           visited[neighbour] = true;
           result.push(neighbour);
@@ -44,34 +44,34 @@ const graphBfs = (adjList) => {
   return result;
 };
 const result = graphBfs([[2, 3, 1], [0], [0, 4], [0], [4]]);
-// console.log(result);
+console.log(result);
 
-const graphDfs = (adjList) => {
-  const visited = {};
+const graphDfs = (edges) => {
+  let visited = {};
   let result = [];
-  const dfs = (index) => {
+  function dfs(index) {
     visited[index] = true;
     result.push(index);
-    for (let neighbour of adjList[index]) {
+    for (let neighbour of edges[index]) {
       if (!visited[neighbour]) {
         dfs(neighbour);
       }
     }
-  };
+  }
   dfs(0);
   return result;
 };
 const res = graphDfs([[2, 3, 1], [0], [0, 4], [0], [2]]);
-// console.log(res);
+console.log(res);
 
-const findJudge = (n, trust) => {
+const findJudge = (n, edges) => {
   let incoming = {};
   let outgoing = {};
   for (let index = 1; index <= n; index++) {
     incoming[index] = 0;
     outgoing[index] = 0;
   }
-  for (let edge of trust) {
+  for (let edge of edges) {
     const [src, dest] = edge;
     incoming[dest]++;
     outgoing[src]++;
@@ -88,7 +88,7 @@ const judge = findJudge(4, [
   [4, 3],
   [2, 3],
 ]);
-// console.log(judge);
+console.log(judge);
 
 const countServers = (grid) => {
   const rows = grid.length;
@@ -232,4 +232,4 @@ const numOfClosedIsland = closedIsland([
   [0, 1, 0, 1, 0],
   [0, 1, 1, 1, 0],
 ]);
-console.log("numOfClosedIsland", numOfClosedIsland);
+// console.log("numOfClosedIsland", numOfClosedIsland);
