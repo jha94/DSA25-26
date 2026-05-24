@@ -1,21 +1,22 @@
 const buildAdjList = (edges) => {
   const adjList = {};
   for (let edge of edges) {
-    const [src, dest] = edge;
-    if (adjList[src]) {
-      adjList[src].push(dest);
+    const [key, value] = edge;
+    if (adjList[key]) {
+      adjList[key].push(value);
     } else {
-      adjList[src] = [dest];
+      adjList[key] = [value];
     }
   }
   return adjList;
 };
+
 const adjList = buildAdjList([
   [0, 1],
   [2, 3],
   [0, 4],
 ]);
-console.log(adjList);
+// console.log(adjList);
 
 const graphBfs = (edges) => {
   let visited = {};
@@ -28,8 +29,8 @@ const graphBfs = (edges) => {
   }
   function bfs(index) {
     visited[index] = true;
-    result.push(index);
     queue.push(index);
+    result.push(index);
     while (queue.length) {
       const current = queue.shift();
       for (let neighbour of edges[current]) {
@@ -44,7 +45,7 @@ const graphBfs = (edges) => {
   return result;
 };
 const result = graphBfs([[2, 3, 1], [0], [0, 4], [0], [4]]);
-console.log(result);
+// console.log(result);
 
 const graphDfs = (edges) => {
   let visited = {};
@@ -62,7 +63,7 @@ const graphDfs = (edges) => {
   return result;
 };
 const res = graphDfs([[2, 3, 1], [0], [0, 4], [0], [2]]);
-console.log(res);
+// console.log(res);
 
 const findJudge = (n, edges) => {
   let incoming = {};
