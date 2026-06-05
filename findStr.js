@@ -1,23 +1,22 @@
 const fileData = "abcabcdocusignxyz";
-let index = 0
-const getChar = () => {
-  return index<fileData.length?fileData[index++]:null
-}
+let index = 0;
+let getChar = () => {
+  return fileData.length >= index ? fileData[index++] : null;
+};
 
-const findString = (input) => {
-  if(!input) return true
+const findString = (str) => {
+  if (!str) return true;
   let char;
-  let currentWindow = ''
-  while((char=getChar())!==null){
-    currentWindow+=char
-    if(currentWindow.length>input.length){
-      currentWindow=currentWindow.substring(1)
+  let currentWindow = "";
+  while ((char = getChar()) !== null) {
+    currentWindow += char;
+    if (currentWindow.length > str.length) {
+      currentWindow = currentWindow.substring(1);
     }
-    if(currentWindow===input){
-      return true
+    if (currentWindow === str) {
+      return true;
     }
   }
-  return false
-}
-
+  return false;
+};
 console.log(findString("docusign"));

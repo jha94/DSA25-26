@@ -1,16 +1,15 @@
 const buildAdjList = (edges) => {
-  const adjList = {};
+  const res = {};
   for (let edge of edges) {
     const [key, value] = edge;
-    if (adjList[key]) {
-      adjList[key].push(value);
+    if (res[key]) {
+      res[key].push(value);
     } else {
-      adjList[key] = [value];
+      res[key] = [value];
     }
   }
-  return adjList;
+  return res;
 };
-
 const adjList = buildAdjList([
   [0, 1],
   [2, 3],
@@ -22,15 +21,11 @@ const graphBfs = (edges) => {
   let visited = {};
   let queue = [];
   let result = [];
-  for (let index in edges) {
-    if (!visited[index]) {
-      bfs(index);
-    }
-  }
-  function bfs(index) {
+
+  const bfs = (index) => {
     visited[index] = true;
-    queue.push(index);
     result.push(index);
+    queue.push(index);
     while (queue.length) {
       const current = queue.shift();
       for (let neighbour of edges[current]) {
@@ -41,6 +36,12 @@ const graphBfs = (edges) => {
         }
       }
     }
+  };
+
+  for (let index in edges) {
+    if (!visited[index]) {
+      bfs(index);
+    }
   }
   return result;
 };
@@ -50,7 +51,7 @@ const result = graphBfs([[2, 3, 1], [0], [0, 4], [0], [4]]);
 const graphDfs = (edges) => {
   let visited = {};
   let result = [];
-  function dfs(index) {
+  const dfs = (index) => {
     visited[index] = true;
     result.push(index);
     for (let neighbour of edges[index]) {
@@ -58,27 +59,29 @@ const graphDfs = (edges) => {
         dfs(neighbour);
       }
     }
-  }
+  };
   dfs(0);
   return result;
 };
 const res = graphDfs([[2, 3, 1], [0], [0, 4], [0], [2]]);
-// console.log(res);
+console.log(res);
 
-const findJudge = (n, edges) => {
+const findJudge = (trust, edges) => {
   let incoming = {};
   let outgoing = {};
-  for (let index = 1; index <= n; index++) {
+
+  for (let index = 1; index <= trust; index++) {
     incoming[index] = 0;
     outgoing[index] = 0;
   }
+
   for (let edge of edges) {
     const [src, dest] = edge;
     incoming[dest]++;
     outgoing[src]++;
   }
   for (let [key, value] of Object.entries(incoming)) {
-    if (value === n - 1 && outgoing[key] === 0) {
+    if (value === trust - 1 && outgoing[key] === 0) {
       return key;
     }
   }
@@ -94,10 +97,8 @@ console.log(judge);
 const countServers = (grid) => {
   const rows = grid.length;
   const column = grid[0].length;
-
-  const rowArr = new Array(rows).fill(0);
-  const colArr = new Array(column).fill(0);
-
+  let rowArr = new Array(rows).fill(0);
+  let colArr = new Array(column).fill(0);
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < column; j++) {
       if (grid[i][j] === 1) {
@@ -106,17 +107,17 @@ const countServers = (grid) => {
       }
     }
   }
-
-  let res = 0;
+  let result = 0;
   for (let i = 0; i < rows; i++) {
     for (let j = 0; j < column; j++) {
       if (grid[i][j] === 1 && Math.max(rowArr[i], colArr[j]) > 1) {
-        res++;
+        result++;
       }
     }
   }
-  return res;
+  return result;
 };
+
 const servers = countServers([
   [1, 1, 0, 0],
   [0, 0, 1, 0],
@@ -128,7 +129,7 @@ const servers = countServers([
 const numIslands = (grid) => {
   if (!grid || grid.length === 0) return 0;
 
-  const dfs = (grid, i, j) => {
+  function dfs(grid, i, j) {
     if (
       i < 0 ||
       i >= grid.length ||
@@ -144,14 +145,12 @@ const numIslands = (grid) => {
     dfs(grid, i, j + 1);
     dfs(grid, i, j - 1);
     return 1;
-  };
+  }
 
   let count = 0;
   for (let i = 0; i < grid.length; i++) {
     for (let j = 0; j < grid[i].length; j++) {
-      if (grid[i][j] === "1") {
-        count += dfs(grid, i, j);
-      }
+      count += dfs(grid, i, j);
     }
   }
   return count;
@@ -163,7 +162,7 @@ const numOfIsland = numIslands([
   ["0", "0", "1", "0", "0"],
   ["0", "0", "0", "1", "1"],
 ]);
-// console.log(numOfIsland);
+// console.log("numOfIsland", numOfIsland);
 
 const maxAreaOfIsland = (grid) => {
   let maxArea = 0;
@@ -234,3 +233,25 @@ const numOfClosedIsland = closedIsland([
   [0, 1, 1, 1, 0],
 ]);
 // console.log("numOfClosedIsland", numOfClosedIsland);
+
+const islandPerimeter = (grid) => {
+  let perimeter = 0;
+  for (let index = 0; index < grid.length; index++) {
+    for (let ind = 0; ind < grid[index].length; ind++) {
+      if (grid[index][ind] === 1) {
+        perimeter += 4;
+
+        if (index > 0 && grid[index - 1][ind] === 1) {
+          perimeter -= 2;
+        }
+        if (ind > 0 && grid[index][ind - 1] === 1) {
+          perimeter -= 2;
+        }
+      }
+    }
+  }
+  return perimeter;
+};
+
+const perimeter = islandPerimeter([[1, 0]]);
+// console.log(perimeter);
