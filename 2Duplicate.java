@@ -2,7 +2,7 @@ import java.util.HashSet;
 
 class Duplicate {
     public boolean hasDuplicate(int[] nums) {
-        HashSet<Number> hs = new HashSet<Number>();
+        HashSet<Integer> hs = new HashSet<Integer>();
         for (int index = 0; index < nums.length; index++) {
             if (hs.contains(nums[index])) {
                 return true;
