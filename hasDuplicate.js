@@ -1,11 +1,10 @@
 const hasDuplicate = (nums) => {
-  if (nums.length < 2) return false;
-  const set = new Set();
+  const seen = new Set();
   for (let num of nums) {
-    if (set.has(num)) {
+    if (seen.has(num)) {
       return true;
     }
-    set.add(num);
+    seen.add(num);
   }
   return false;
 };
