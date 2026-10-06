@@ -1,5 +1,5 @@
 const twoSum = (nums, target) => {
-  if (nums.length === 0 || target===null||target===undefined) {
+  if (nums.length === 0 || target === null || target === undefined) {
     return [-1, -1];
   }
   const map = new Map();
@@ -7,9 +7,8 @@ const twoSum = (nums, target) => {
     const diff = target - nums[index];
     if (map.has(diff)) {
       return [map.get(diff), index];
-    } else {
-      map.set(nums[index], index);
     }
+    map.set(nums[index], index);
   }
   return [-1, -1];
 };
